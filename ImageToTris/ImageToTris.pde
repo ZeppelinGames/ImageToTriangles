@@ -52,7 +52,13 @@ void CreateGrid() {
 
 void DrawImage() 
 {
-  image(img, 0, 0, width, height);
+  int imageWidth = img.width;
+  int imageHeight = img.height;
+
+  int largerSide = imageWidth > imageHeight ? imageWidth : imageHeight;
+  float imgScale = float(width) / float(largerSide);
+
+  image(img, 0, 0, imageWidth * imgScale, imageHeight * imgScale);
 
   for (int i =0; i <(width/fixedOutputScale) * (height/fixedOutputScale) + (width/fixedOutputScale); i++) {
     //DrawTriangles
@@ -113,6 +119,8 @@ void DrawImage()
       }
     }
   }
+
+  println("Done");
 }
 
 color calcAVGTriangleColor(PVector p1, PVector p2, PVector p3) {
